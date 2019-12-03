@@ -1,30 +1,41 @@
-{% extends 'base.html' %}
+
+{% extends 'base.html'%}
+
+{% block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Akronim|Bellefair|Joti+One" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-md-6">
-    {% if comments %}
+<div class="container">
+  <a href="{{url_for('main.index')}}">
+    <button type="button" class="btn btn-primary btn-sm">
+      <span class="glyphicon glyphicon-chevron-left"></span> Back
+    </button>
+    <h3 style="color:blue;">Comments:</h3>
+  </a>
 
-    {% for comment in comments %}
-    <div class="card">
-      <h5 class="card-header">{{comment.body}}</h5>
-      <div class="body">
-        <p class="card-text"><small class="text-muted">Posted On: {{comment.posted_on.strftime('%Y-%m-%d')}}</small></p>
-        <p class="card-text"><small class="text-muted">Posted By: {{comment.posted_by}}</small></p>
+  <h6> &nbsp; &nbsp; <span style="font-weight:bolder">Found :</span> &nbsp; <span
+      style="font-family:Bellefair; font-size:18px;">{{ comments | count }} Comments</span></h6>
+  <hr>
+  {% if comments %}
+    {% for item in comments %}
+      <div class="panel">
+        <p style="font-family:Bellefair; font-size:20px; padding:10px; text-align:center;">{{item.comment}}</p>
+        <h5>&nbsp;&nbsp;Comment by: &nbsp;<span
+            style="color:blue;font-family:Bellefair; font-size:20px;">{{item.username}}</span></h5>
       </div>
-
-      {% if blog_by==current_user.username %}
-      <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
-      {% elif comment.posted_by==current_user.username %}
-      <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
+      {% if post_by==current_user.username %}
+        <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
+      {% elif comments.posted_by==current_user.username %}
+        <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
       {% endif %}
-
-    </div>
-    <br>
-    {% endfor %}
-    {% else %}
+    {%endfor%}
+  {% else %}
     <h5 class="alert alert-danger">There are no comments for this Blog</h5>
-    {% endif %}
-  </div>
+    <a href="{{ url_for('main.new_comment',id=id) }}" class="btn btn-primary" style="margin-left: 30px;">Create one.</a>
+  {% endif %}
 </div>
-    {% endblock %}
+
+{% endblock %}
