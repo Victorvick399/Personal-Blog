@@ -4,11 +4,11 @@ from . import main
 from app.models import Post, User , Comment
 from .forms import PostForm, UpdateProfile , UpdatePostForm ,CommentsForm
 from ..import db, photos
-from ..requests import get_quotes
+from ..requests import get_quote
 
 @main.route('/')
 def index():
-    quote=get_quotes()
+    quote=get_quote()
     posts= Post.query.all()
     return render_template('index.html',posts=posts,quote=quote)
 
@@ -112,35 +112,9 @@ def new_comment(id):
     if form.validate_on_submit():
         new_comment = Comment(post_id =id,comment=form.comment.data,username=current_user.username)
         new_comment.save_comment()
-        return redirect(url_for('main.index'))
-    return render_template('new_comment.html',comment_form=form)
+        return redirect(url_for('main.view_comments' , id= id))
+    return render_template('new_comment.html',comment_form=form,comments=comments)
 
-# @main.route('/blog/comments/<int:id>', methods=['GET','POST'])
-# @login_required
-# def comments(id):
-#   '''
-#   view function that render comment template containing comments for a blog
-#   '''
-#   form=CommentsForm()
-#   blog_Com=Post.query.filter_by(id=id).first()
-#   print('********************HERE****************************')
-#   print(blog_Com)
-#   blog_by=blog_Com.user_id
-
-#   if form.validate_on_submit():
-#     body=form.body.data
-
-#     new_comment=Comment(body=body,posted_by=current_user.username,blog_id=post.id)
-
-#     new_comment.save_comment()
-
-#     return redirect(url_for('main.comments',id=id))
-
-
-#   title="Comments"
-#   comments=Comment.get_comments(id)
-
-#   return render_template('main.comments',title=title,comments=comments,form=form,blog_by=blog_by)
 
 @main.route('/delComment/<int:id>')
 @login_required
@@ -153,7 +127,7 @@ def delComment(id):
 
   comment.delete_comment()
 
-  return redirect(url_for('main.comments',id=comment.blog_id))
+  return redirect(url_for('main.comments',id=comment.post_id))
 
 @main.route('/view/comments/<int:id>')
 def view_comments(id):
