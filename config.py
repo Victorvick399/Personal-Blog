@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY='vexus'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost1'
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
     BASE_URL='http://quotes.stormconsultancy.co.uk/random.json'
 
@@ -19,11 +19,11 @@ class ProdConfig(Config):
 
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost_test1'
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://victor:12345@localhost/blogpost1'
     DEBUG = True
 
 config_options = {

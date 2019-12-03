@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     profile_pic_path = db.Column(db.String(20), nullable=False,
                            default='default.png')
     pass_secure = db.Column(db.String(255))
-    posts = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', backref='users', lazy=True)
 
     @property
     def password(self):

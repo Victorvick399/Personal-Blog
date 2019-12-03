@@ -84,7 +84,6 @@ def update_post(post_id):
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        flash('Your post has been updated!', 'success')
         return redirect(url_for('main.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
@@ -101,7 +100,6 @@ def delete_post(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.index'))
 
 
