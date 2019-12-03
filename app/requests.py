@@ -1,38 +1,17 @@
-import urllib.request,json
+import urllib, json
 from .models import Quote
 
-base_url=None
+base_url = 'http://quotes.stormconsultancy.co.uk/random.json'
 
-def configure_request(app):
-  global base_url
 
-  base_url=app.config["BASE_URL"]
+def get_quote():
+    with urllib.request.urlopen(base_url) as url:
+        response_data = url.read()
+        response = json.loads(response_data)
 
-def get_quotes():
-  '''
-  function that gets the json response from the base url
-  '''
-  with urllib.request.urlopen(base_url) as url:
-    data=url.read()
-    print('********************here************************')
-    print(data)
-    response=json.loads(data)
-    
-    results=process_quote(response)
+        author = response['author']
+        quote = response['quote']
 
-  return results
+        quote_object = Quote( author, quote)
 
-def process_quote(item):
-  '''
-  function that processes the response from json format
-  '''
-  results=[]
-  print('************************ONA HAHA**********************')
-  print(results)
-  author=item.get('author')
-  quote=item.get('quote')
-
-  quote_object=Quote(author,quote)
-  results.append(quote_object)
-
-  return results 
+    return quote_object
