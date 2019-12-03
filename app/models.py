@@ -58,24 +58,28 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    posted_by=db.Column(db.String(255))
     username = db.Column(db.String)
+    posted_on=db.Column(db.DateTime,default=datetime.utcnow)
 
     def save_comment(self):
-        '''
-        Function that saves comments
-        '''
         db.session.add(self)
+        db.session.commit()
+
+    def delete_comment(self):
+        db.session.delete(self)
         db.session.commit()
 
     @classmethod
     def clear_comments(cls):
         Comment.all_comments.clear()
 
-    @classmethod
-    def get_comments(cls, id):
-        comments = Comment.query.filter_by(post_id=id).all()
 
+    @classmethod
+    def get_comments(cls,id):       
+        comments=Comment.query.filter_by(post_id=id).all()
         return comments
+
 
 class Quote:
   '''
