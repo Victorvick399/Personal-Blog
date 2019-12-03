@@ -1,3 +1,7 @@
+*body{
+  font-size: medium;
+}
+
 .article-title {
   color: #444444;
 }
