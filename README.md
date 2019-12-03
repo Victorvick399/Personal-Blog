@@ -42,4 +42,4 @@ You can reach us through the following:
 
 ## License
 
-The license is [here](LICENSE.md).
+The license is [here](LICENSE).
