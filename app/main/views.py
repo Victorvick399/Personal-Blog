@@ -77,7 +77,7 @@ def post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.users != current_user:
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
@@ -96,7 +96,7 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.users != current_user:
         abort(403)
     db.session.delete(post)
     db.session.commit()
@@ -111,7 +111,7 @@ def new_comment(id):
         new_comment = Comment(post_id =id,comment=form.comment.data,username=current_user.username)
         new_comment.save_comment()
         return redirect(url_for('main.view_comments' , id= id))
-    return render_template('new_comment.html',comment_form=form,comments=comments)
+    return render_template('new_comment.html',comment_form=form)
 
 
 @main.route('/delComment/<int:id>')

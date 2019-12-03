@@ -6,14 +6,14 @@
     {% for post in posts %}
     <div class="col-md-4">
       <div class="card">
-        <h5 class="card-header">{{ post.author.username }}</h5>
+        <h5 class="card-header" style="font-size:20px;">{{ post.users.username }}</h5>
         <div class="card-body">
-          <h5 class="card-title"><a class="article-title"
+          <h5 class="card-title"><a class="article-title" style="font-size:20px;"
               href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h5>
-          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text" style="font-size:20px;">{{ post.content }}</p>
           <p>Posted on:{{ post.date_posted.strftime('%Y-%m-%d') }}</p>
-          <a href="{{ url_for('main.post', post_id=post.id) }}" class="btn btn-primary">View Post.</a>
-          <a href="{{ url_for('main.view_comments', id=post.id) }}" class="btn btn-primary">Comments</a>
+          <a href="{{ url_for('main.post', post_id=post.id) }}" style="font-size:15px;" class="btn btn-primary">View Post.</a>
+          <a href="{{ url_for('main.view_comments', id=post.id) }}" style="font-size:15px;" class="btn btn-primary">Comments</a>
         </div>
       </div>
     </div>
@@ -22,11 +22,11 @@
 </div>
 <br>
 <footer>
-  {% block quote%}
+  <!-- {% block quote%}
   <div style="font-size:medium; color:rgb(174, 173, 230)" class="card ">
     <p class="text-center">{{quote.quote}}</p>
     <p class="text-center"><small>Author: {{quote.author}}</small></p>
   </div>
-  {% endblock %}
+  {% endblock %} -->
 </footer>
 {% endblock content %}
