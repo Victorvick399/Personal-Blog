@@ -13,19 +13,20 @@
           <p class="card-text">{{ post.content }}</p>
           <p>Posted on:{{ post.date_posted.strftime('%Y-%m-%d') }}</p>
           <a href="{{ url_for('main.post', post_id=post.id) }}" class="btn btn-primary">View Post.</a>
+          <a href="{{ url_for('main.view_comments', id=post.id) }}" class="btn btn-primary">Comments</a>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
-
-{% block quote%}
-{% for quote in quote %}
-<div style="color:lightblue" class="card bg-transparent">
-  <p class="text-center">{{quote.quote}}</p>
-  <p class="text-center"><small>Author: {{quote.author}}</small></p>
-</div>
-{% endfor %}
-{% endblock %}
+<br>
+<footer>
+  {% block quote%}
+  <div style="font-size:medium; color:rgb(174, 173, 230)" class="card ">
+    <p class="text-center">{{quote.quote}}</p>
+    <p class="text-center"><small>Author: {{quote.author}}</small></p>
+  </div>
+  {% endblock %}
+</footer>
 {% endblock content %}
