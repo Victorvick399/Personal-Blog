@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    {% if comments %}
+
+    {% for comment in comments %}
+    <div class="card">
+      <h5 class="card-header">{{comment.body}}</h5>
+      <div class="body">
+        <p class="card-text"><small class="text-muted">Posted On: {{comment.posted_on.strftime('%Y-%m-%d')}}</small></p>
+        <p class="card-text"><small class="text-muted">Posted By: {{comment.posted_by}}</small></p>
+      </div>
+
+      {% if blog_by==current_user.username %}
+      <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
+      {% elif comment.posted_by==current_user.username %}
+      <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
+      {% endif %}
+
+    </div>
+    <br>
+    {% endfor %}
+    {% else %}
+    <h5 class="alert alert-danger">There are no comments for this Blog</h5>
+    {% endif %}
+  </div>
+</div>
+    {% endblock %}
