@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<div class="container">
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="card-header">{{ post.author.username }}</h5>
+        <div class="card-body">
+          <h5 class="card-title"><a class="article-title"
+              href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h5>
+          <p class="card-text">{{ post.content }}</p>
+          <p>Posted on:{{ post.date_posted.strftime('%Y-%m-%d') }}</p>
+          <a href="{{ url_for('main.post', post_id=post.id) }}" class="btn btn-primary">View Post.</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% block quote%}
+{% for quote in quote %}
+<div style="color:lightblue" class="card bg-transparent">
+  <p class="text-center">{{quote.quote}}</p>
+  <p class="text-center"><small>Author: {{quote.author}}</small></p>
+</div>
+{% endfor %}
+{% endblock %}
+{% endblock content %}
