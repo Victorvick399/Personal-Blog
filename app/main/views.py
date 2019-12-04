@@ -89,7 +89,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
     return render_template('update_post.html',
-                           create_post_form=form)
+                           update_post_form=form)
 
 
 @main.route("/post/<int:post_id>/delete", methods=['POST'])
@@ -121,11 +121,11 @@ def delComment(id):
   view function that deletes a comment if only the comment belongs to the current user
   '''
   
-  comment=Comment.query.filter_by(id=id).first()
+  comment= Comment.query.filter_by(post_id=id).first()
 
   comment.delete_comment()
 
-  return redirect(url_for('main.comments',id=comment.post_id))
+  return redirect(url_for('main.view_comments',id=comment.post_id))
 
 @main.route('/view/comments/<int:id>')
 def view_comments(id):
@@ -133,4 +133,5 @@ def view_comments(id):
     Function that returs  the comments belonging to a particular pitch
     '''
     comments = Comment.get_comments(id)
+
     return render_template('comments.html',comments = comments, id=id)

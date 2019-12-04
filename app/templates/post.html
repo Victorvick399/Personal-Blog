@@ -1,6 +1,6 @@
  {% extends "base.html" %}
  {% block content %}
- <article class="media content-section" style="text-align: center;">
+ <!-- <article class="media content-section" style="text-align: center;">
    <div class="media-body">
      <div class="article-metadata">
        <a class="mr-2" style="font-size: large;"
@@ -11,12 +11,28 @@
      <p class="article-content">{{ post.content }}</p>
      {% if post.users == current_user %}
      <div>
-       <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('main.update_post', post_id=post.id) }}">Update</a>
+       <a class="btn btn-info btn-lg mt-1 mb-1" href="{{ url_for('main.update_post', post_id=post.id) }}">Update</a>
        <form action="{{ url_for('main.delete_post', post_id=post.id) }}" method="POST">
-         <input class="btn btn-danger" type="submit" value="Delete">
+         <input class="btn btn-danger btn-lg" type="submit" value="Delete">
        </form>
      </div>
      {% endif %}
    </div>
- </article>
+ </article> -->
+<div class="container">
+ <div class="card text-center">
+   <div class="card-header">
+     <a class="mr-2" style="font-size: large;"
+       href="{{url_for('main.profile',uname=current_user.username)}}">{{ post.users.username | capitalize }}</a>
+   </div>
+   <div class="card-body">
+     <h5 class="card-title">{{ post.title }}</h5>
+     <p class="card-text">{{ post.content }}</p>
+     <a href="{{ url_for('main.update_post', post_id=post.id) }}" class="btn btn-primary btn-lg">Update</a>
+   </div>
+   <div class="card-footer text-muted">
+      Posted on: {{ post.date_posted.strftime('%Y-%m-%d') }}
+   </div>
+ </div>
+</div>
  {% endblock content %}

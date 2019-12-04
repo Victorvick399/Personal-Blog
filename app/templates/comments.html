@@ -25,12 +25,10 @@
         <p style="font-family:Bellefair; font-size:20px; padding:10px; text-align:center;">{{item.comment}}</p>
         <h5>&nbsp;&nbsp;Comment by: &nbsp;<span
             style="color:blue;font-family:Bellefair; font-size:20px;">{{item.username}}</span></h5>
+        {% if current_user.is_authenticated %}
+          <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=id)}}">Delete</a>
+        {% endif %}
       </div>
-      {% if posted_by==current_user.username %}
-        <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
-      {% elif comments.posted_by==current_user.username %}
-        <a class="btn btn-outline-danger" href="{{url_for('main.delComment',id=comment.id)}}">Delete</a>
-      {% endif %}
     {%endfor%}
   {% else %}
     <h5 class="alert alert-danger">There are no comments for this Blog</h5>

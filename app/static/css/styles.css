@@ -1,4 +1,7 @@
-*body{
+* {
+  font-size: medium;
+}
+.container{
   font-size: medium;
 }
 
